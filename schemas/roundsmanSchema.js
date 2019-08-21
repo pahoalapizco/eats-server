@@ -24,6 +24,12 @@ const roundsmanSchema = new Schema({
     type: String,
     required: true
   },
+  phonenumber: {
+    type: String,
+  },
+  img: {
+    type: String
+  },
   vehicle: {
     type: String,
     default: 'Motorcycle',
