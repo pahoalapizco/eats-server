@@ -4,7 +4,9 @@
   "description": "A simple copy of Uber Eats for Devf course - server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "start:dev": "nodemon index.js",
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,14 @@
   "bugs": {
     "url": "https://github.com/pahoalapizco/eats-server/issues"
   },
-  "homepage": "https://github.com/pahoalapizco/eats-server#readme"
+  "homepage": "https://github.com/pahoalapizco/eats-server#readme",
+  "dependencies": {
+    "apollo-server": "^2.8.2",
+    "graphql": "^14.4.2",
+    "mongoose": "^5.6.10"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "standard": "^14.0.0"
+  }
 }
