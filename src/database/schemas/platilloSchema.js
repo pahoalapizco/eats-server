@@ -3,10 +3,10 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-const saucerTypes = {
+const platilloTypes = {
   values: ['Food', 'Drink', 'Dessert']
 }
-const saucerSchema = new Schema({
+const platilloSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -17,7 +17,7 @@ const saucerSchema = new Schema({
   type: {
     type: String,
     default: 'Food',
-    enum: saucerTypes
+    enum: platilloTypes
   },
   price: {
     type: Number,
@@ -32,4 +32,4 @@ mongoose.Types.ObjectId.prototype.valueOf = function () {
   return this.toString()
 }
 
-module.exports = saucerSchema
+module.exports = platilloSchema
