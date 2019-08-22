@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 const saucerTypes = {
   values: ['Food', 'Drink', 'Dessert']
 }
-export const saucerSchema = new Schema({
+const saucerSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -22,5 +22,14 @@ export const saucerSchema = new Schema({
   price: {
     type: Number,
     required: true
+  },
+  img: {
+    type: String
   }
-})
+}, { timestamps: true })
+
+mongoose.Types.ObjectId.prototype.valueOf = function () {
+  return this.toString()
+}
+
+module.exports = saucerSchema

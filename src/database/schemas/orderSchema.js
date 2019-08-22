@@ -3,7 +3,7 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-export const orderSchema = new Schema({
+const orderSchema = new Schema({
   restaurant: {
     type: String,
     required: true
@@ -24,4 +24,10 @@ export const orderSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'soucers'
   }]
-})
+}, { timestamps: true })
+
+mongoose.Types.ObjectId.prototype.valueOf = function () {
+  return this.toString()
+}
+
+module.exports = orderSchema

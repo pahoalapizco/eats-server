@@ -9,9 +9,9 @@ import orderSchema from '../schemas/orderSchema'
 const userModel = mongoose.model('users', userSchema)
 const roundsmanModel = mongoose.model('roundsmen', roundsmanSchema)
 const saucerModel = mongoose.model('saucers', saucerSchema)
-const oderModel = mongoose.model('orders', orderSchema)
+const oderModel = mongoose.model('order', orderSchema)
 
-export default {
+module.exports = {
   userModel,
   roundsmanModel,
   saucerModel,

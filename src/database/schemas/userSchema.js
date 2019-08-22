@@ -3,10 +3,7 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-const vehicles = {
-  values: ['Bike', 'Motorcycle', 'Car']
-}
-export const roundsmanSchema = new Schema({
+export const userSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -29,14 +26,11 @@ export const roundsmanSchema = new Schema({
   },
   img: {
     type: String
-  },
-  vehicle: {
-    type: String,
-    default: 'Motorcycle',
-    enum: vehicles
-  },
-  order: [{
-    type: Schema.Types.ObjectId,
-    ref: 'orders'
-  }]
-})
+  }
+}, { timestamps: true })
+
+mongoose.Types.ObjectId.prototype.valueOf = function () {
+  return this.toString()
+}
+
+module.exports = userSchema
