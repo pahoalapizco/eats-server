@@ -1,12 +1,12 @@
 'use stric'
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const saucerTypes = {
   values: ['Food', 'Drink', 'Dessert']
 }
-const saucerSchema = new Schema({
+export const saucerSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -24,5 +24,3 @@ const saucerSchema = new Schema({
     required: true
   }
 })
-
-module.exports = saucerSchema

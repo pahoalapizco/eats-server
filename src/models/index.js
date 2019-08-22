@@ -1,17 +1,17 @@
 'use strict'
 
-const mongoose = require('mongoose')
-const userSchema = require('../schemas/userSchema')
-const roundsmanSchema = require('../schemas/roundsmanSchema')
-const saucerSchema = require('../schemas/saucerSchema')
-const orderSchema = require('../schemas/orderSchema')
+import mongoose from 'mongoose'
+import userSchema from '../schemas/userSchema'
+import roundsmanSchema from '../schemas/roundsmanSchema'
+import saucerSchema from '../schemas/saucerSchema'
+import orderSchema from '../schemas/orderSchema'
 
 const userModel = mongoose.model('users', userSchema)
 const roundsmanModel = mongoose.model('roundsmen', roundsmanSchema)
 const saucerModel = mongoose.model('saucers', saucerSchema)
 const oderModel = mongoose.model('orders', orderSchema)
 
-module.exports = {
+export default {
   userModel,
   roundsmanModel,
   saucerModel,

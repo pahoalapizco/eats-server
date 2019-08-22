@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "start:dev": "nodemon ./src/index.js",
+    "start:dev": "nodemon --exec babel-node --watch src ./src/index.js",
     "lint": "standard"
   },
   "repository": {
@@ -24,6 +24,11 @@
     "mongoose": "^5.6.10"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "dotenv": "^8.1.0",
     "nodemon": "^1.19.1",
     "standard": "^14.0.0"
   }

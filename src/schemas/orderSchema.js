@@ -1,9 +1,9 @@
 'use strict'
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-const orderSchema = new Schema({
+export const orderSchema = new Schema({
   restaurant: {
     type: String,
     required: true
@@ -25,5 +25,3 @@ const orderSchema = new Schema({
     ref: 'soucers'
   }]
 })
-
-module.exports = orderSchema

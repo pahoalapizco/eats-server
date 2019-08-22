@@ -1,12 +1,12 @@
 'use strict'
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const vehicles = {
   values: ['Bike', 'Motorcycle', 'Car']
 }
-const roundsmanSchema = new Schema({
+export const roundsmanSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -25,7 +25,7 @@ const roundsmanSchema = new Schema({
     required: true
   },
   phonenumber: {
-    type: String,
+    type: String
   },
   img: {
     type: String
@@ -40,5 +40,3 @@ const roundsmanSchema = new Schema({
     ref: 'orders'
   }]
 })
-
-module.exports = roundsmanSchema

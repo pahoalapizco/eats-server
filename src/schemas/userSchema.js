@@ -1,9 +1,9 @@
 'use strict'
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-const userSchema = new Schema({
+export const userSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -22,11 +22,9 @@ const userSchema = new Schema({
     required: true
   },
   phonenumber: {
-    type: String,
+    type: String
   },
   img: {
     type: String
   }
 })
-
-module.exports = userSchema
