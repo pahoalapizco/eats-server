@@ -8,8 +8,12 @@ const createUser = async (user) => {
   }
 }
 
-const getUserById = async (userID) => {
-  
+const getUsers = async (userID) => {
+  try {
+    return await UserModel.find()
+  } catch (error) {
+    return error
+  }
 }
 
 module.exports = {

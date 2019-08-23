@@ -1,6 +1,7 @@
 import { createPlatillo, getPlatillos } from '../actions/platilloActions'
 import { createRepartidor, getRepartidores } from '../actions/repartidorActions'
 import { addRestaurant,  getRestaurants } from '../actions/restaurantActions'
+import { createUser, getUsers } from '../actions/usuarioActions'
 
 const resolvers = {
   Query: {
@@ -18,6 +19,13 @@ const resolvers = {
       } catch (error) {
         return error
       }
+    },
+    getUsers: async () => {
+      try {
+        return getUsers()
+      } catch (error) {
+        return error
+      }
     }
   },
   Mutation: {
@@ -29,7 +37,14 @@ const resolvers = {
         return error
       }
     },
-    addRepartidor: async  (parent, args, context, info) => await createRepartidor(args.data)
+    addRepartidor: async (parent, args, context, info) => await createRepartidor(args.data),
+    addUser: async (parent, { data }, context, info) => {
+      try {
+        return await createUser(data)
+      } catch (error) {
+        return error
+      }
+    }
   }
 }
 

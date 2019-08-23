@@ -29,10 +29,19 @@ const typesDefs = gql`
     phonenumber: String
   }
 
+  type User {
+    _id: ID,
+    name: String,
+    lastname: String,
+    email: String,
+    phonenumber: String
+  }
+
   type Query {
     getPlatillos: [Platillo],
     getRestaurants: [Restaurant],
-    getRepartidores: [Repartidor]
+    getRepartidores: [Repartidor],
+    getUsers: [User]
   }
 
   input PlatilloInput {
@@ -59,11 +68,21 @@ const typesDefs = gql`
     phonenumber: String
   }
 
+  input UserInput {
+    name: String!,
+    lastname: String!,
+    email: String!,
+    password: String!,
+    phonenumber: String
+  }
+
   type Mutation {
     addPlatillo(data: PlatilloInput) : Platillo,
-    addRestaurant(data: RestaurantInput) : Restaurant
+    addRestaurant(data: RestaurantInput) : Restaurant,
     addRepartidor(data: RepartidorInput) : Repartidor
-  }
+    addUser(data: UserInput) : User
+  },
+
 `
 
 export default typesDefs
