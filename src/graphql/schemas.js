@@ -45,6 +45,7 @@ const typesDefs = gql`
     total: Float,
     address: String,
     metodoPago: String,
+    estatus: [Int],
     detail: [Detail]
   }
 
