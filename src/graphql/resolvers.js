@@ -2,7 +2,7 @@ import { createPlatillo, getPlatillos } from '../actions/platilloActions'
 import { createRepartidor, getRepartidores } from '../actions/repartidorActions'
 import { addRestaurant,  getRestaurants } from '../actions/restaurantActions'
 import { createUser, getUsers } from '../actions/usuarioActions'
-import { getPedidosById } from '../actions/pedidosActions'
+import { addPedido, getPedidos } from '../actions/pedidosActions'
 
 const resolvers = {
   Query: {
@@ -28,13 +28,7 @@ const resolvers = {
         return error
       }
     },
-    getPedidosById: async (parent, { data }, context, info) => {
-      try {
-        return await getPedidosById()
-      } catch (error) {
-        return error
-      }
-    }
+    getPedidos: async () => await getPedidos()
   },
   Mutation: {
     addPlatillo: async (parent, { data }, context, info) => await createPlatillo(data),
@@ -52,7 +46,8 @@ const resolvers = {
       } catch (error) {
         return error
       }
-    }
+    },
+    addPedido: async (parent, { data }, context, info) => await addPedido(data)
   }
 }
 

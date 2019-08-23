@@ -2,6 +2,7 @@
 
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
+const metodoPago = ['PayPal', 'Tarjeta', 'Ejectivo']
 
 const pedidoSchema = new Schema({
   restaurantID: {
@@ -22,6 +23,11 @@ const pedidoSchema = new Schema({
   address: {
     type: String,
     required: true
+  },
+  metodoPago: {
+    type: String,
+    required: true,
+    enum: metodoPago
   },
   detail: [{
     platilloID: {

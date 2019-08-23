@@ -38,12 +38,13 @@ const typesDefs = gql`
   }
 
   type Pedido {
-    _id: ID,
-    restaurant: Restaurant,
-    user: User,
-    repartidor: Repartidor,
+    _id: ID
+    restaurantID: ID,
+    usuarioID: ID,
+    repartidorID: ID,
     total: Float,
     address: String,
+    metodoPago: String,
     detail: [Detail]
   }
 
@@ -58,7 +59,7 @@ const typesDefs = gql`
     getRestaurants: [Restaurant],
     getRepartidores: [Repartidor],
     getUsers: [User],
-    getPedido: [Pedido]
+    getPedidos: [Pedido]
   }
 
   input PlatilloInput {
@@ -93,11 +94,28 @@ const typesDefs = gql`
     phonenumber: String
   }
 
+  input PedidoInput {
+    restaurantID: ID!,
+    usuarioID: ID!,
+    repartidorID: ID,
+    total: Float!,
+    address: String!,
+    metodoPago: String!,
+    detail: [DetailInput]!
+  }
+
+  input DetailInput {
+    platilloID: ID!,
+    cantidad: Int!,
+    importe: Float!
+  }
+
   type Mutation {
     addPlatillo(data: PlatilloInput) : Platillo,
     addRestaurant(data: RestaurantInput) : Restaurant,
-    addRepartidor(data: RepartidorInput) : Repartidor
-    addUser(data: UserInput) : User
+    addRepartidor(data: RepartidorInput) : Repartidor,
+    addUser(data: UserInput) : User,
+    addPedido(data: PedidoInput) : Pedido
   },
 
 `

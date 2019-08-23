@@ -8,11 +8,15 @@ const addPedido = async (pedido) => {
   }
 }
 
-const getPedidoById = async () => {
-
+const getPedidos = async () => {
+ try {
+  return await PedidoModel.find()
+ } catch (error) {
+   return error
+ }
 }
 
 module.exports = {
   addPedido,
-  getPedidoById
+  getPedidos
 }
