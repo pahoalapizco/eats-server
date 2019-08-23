@@ -1,10 +1,15 @@
 import { PlatilloModel } from '../database/models'
+import { updateRestaurant } from './restaurantActions'
 
 const createPlatillo = async (platillo) => {
   try {
-    return await PlatilloModel.create(platillo)
+    const platilloNuevo = await PlatilloModel.create(platillo)
+    const filter = { _id: platillo.restaurantID }
+    const update = { $push: { 'platillos': platilloNuevo._id }}
+    await updateRestaurant(filter, update)
+    return platilloNuevo
   } catch (error) {
-    return null
+    return error
   }
 }
 
@@ -12,7 +17,7 @@ const getPlatillos = async () => {
   try {
     return await PlatilloModel.find()
   } catch(error) {
-    return null
+    return error
   }
 }
 

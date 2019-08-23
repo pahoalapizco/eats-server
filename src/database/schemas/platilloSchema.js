@@ -26,7 +26,7 @@ const platilloSchema = new Schema({
   img: {
     type: String
   },
-  restaurant: {
+  restaurantID: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'restaurantes'

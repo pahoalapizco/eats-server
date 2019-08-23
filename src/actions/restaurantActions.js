@@ -10,7 +10,15 @@ const addRestaurant = async (restaurant) => {
 
 const getRestaurants = async () => {
   try {
-    return await RestaurantModel.find()
+    return await RestaurantModel.find().populate('platillos')
+  } catch (error) {
+    return error
+  }
+}
+
+const updateRestaurant = async (filter, update) => {
+  try {
+    return await RestaurantModel.findOneAndUpdate(filter, update, { new: true })
   } catch (error) {
     return error
   }
@@ -18,5 +26,6 @@ const getRestaurants = async () => {
 
 module.exports = {
   addRestaurant,
-  getRestaurants
+  getRestaurants,
+  updateRestaurant
 }

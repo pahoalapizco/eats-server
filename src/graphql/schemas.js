@@ -41,7 +41,7 @@ const typesDefs = gql`
     type: String!,
     price: Float!,
     img: String,
-    restauranID: ID!
+    restaurantID: ID!
   }
 
   input RestaurantInput {

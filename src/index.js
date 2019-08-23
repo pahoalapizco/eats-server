@@ -7,7 +7,8 @@ require('dotenv').config()
 
 mongoose.connect(process.env.DATABASE, {
   useCreateIndex: true,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: false
 })
 
 const mongoDB = mongoose.connection
