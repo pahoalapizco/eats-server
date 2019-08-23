@@ -41,7 +41,7 @@ const typesDefs = gql`
     _id: ID
     restaurantID: ID,
     usuarioID: ID,
-    repartidorID: ID,
+    repartidor: Repartidor,
     total: Float,
     address: String,
     metodoPago: String,
@@ -96,19 +96,19 @@ const typesDefs = gql`
   }
 
   input PedidoInput {
-    restaurantID: ID!,
-    usuarioID: ID!,
+    restaurantID: ID,
+    usuarioID: ID,
     repartidorID: ID,
-    total: Float!,
-    address: String!,
-    metodoPago: String!,
-    detail: [DetailInput]!
+    total: Float,
+    address: String,
+    metodoPago: String,
+    detail: [DetailInput]
   }
 
   input DetailInput {
-    platilloID: ID!,
-    cantidad: Int!,
-    importe: Float!
+    platilloID: ID,
+    cantidad: Int,
+    importe: Float
   }
 
   type Mutation {
@@ -116,7 +116,8 @@ const typesDefs = gql`
     addRestaurant(data: RestaurantInput) : Restaurant,
     addRepartidor(data: RepartidorInput) : Repartidor,
     addUser(data: UserInput) : User,
-    addPedido(data: PedidoInput) : Pedido
+    addPedido(data: PedidoInput) : Pedido,
+    takePedido(pedidoID: ID, repartidorID: ID) : Pedido
   },
 
 `

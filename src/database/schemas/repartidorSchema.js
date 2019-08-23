@@ -35,9 +35,9 @@ const repartidorSchema = new Schema({
     default: 'Motocicleta',
     enum: vehiculos
   },
-  order: [{
+  pedidos: [{
     type: Schema.Types.ObjectId,
-    ref: 'orders'
+    ref: 'pedidos'
   }]
 }, { timestamps: true })
 

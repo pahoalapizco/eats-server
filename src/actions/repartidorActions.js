@@ -16,7 +16,17 @@ const getRepartidores = async () => {
   }
 }
 
+
+const updateRepartidor = async (filter, update) => {
+  try {
+    return await RepartidorModel.findOneAndUpdate(filter, update, { new: true })
+  } catch (error) {
+    return error;
+  }
+}
+
 module.exports = {
   createRepartidor,
-  getRepartidores
+  getRepartidores,
+  updateRepartidor
 }

@@ -16,14 +16,17 @@ const estatus = [PEDIDO_PENDIENTE, PEDIDO_PROCESO, PEDIDO_ENVIADO, PEDIDO_ETREGA
 const pedidoSchema = new Schema({
   restaurantID: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'restaurantes'
   },
   usuarioID: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'usuarios'
   },
   repartidorID: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
+    ref: 'repartidores'
   },
   total: {
     type: Number,

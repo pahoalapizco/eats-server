@@ -8,7 +8,7 @@ import pedidoSchema from '../schemas/pedidoSchema'
 import restaurantSchema from '../schemas/restaurantSchema'
 
 const UserModel = mongoose.model('usuarios', userSchema)
-const RepartidorModel = mongoose.model('repartidor', repartidorSchema)
+const RepartidorModel = mongoose.model('repartidores', repartidorSchema)
 const PlatilloModel = mongoose.model('platillos', platilloSchema)
 const PedidoModel = mongoose.model('pedidos', pedidoSchema)
 const RestaurantModel = mongoose.model('restaurantes', restaurantSchema)
