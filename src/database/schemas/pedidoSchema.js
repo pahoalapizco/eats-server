@@ -12,6 +12,9 @@ const pedidoSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true
   },
+  repartidorID: {
+    type: Schema.Types.ObjectId
+  },
   total: {
     type: Number,
     required: true

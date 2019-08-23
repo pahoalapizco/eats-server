@@ -37,11 +37,28 @@ const typesDefs = gql`
     phonenumber: String
   }
 
+  type Pedido {
+    _id: ID,
+    restaurant: Restaurant,
+    user: User,
+    repartidor: Repartidor,
+    total: Float,
+    address: String,
+    detail: [Detail]
+  }
+
+  type Detail {
+    platilloID: ID,
+    cantidad: Int,
+    importe: Float
+  }
+
   type Query {
     getPlatillos: [Platillo],
     getRestaurants: [Restaurant],
     getRepartidores: [Repartidor],
-    getUsers: [User]
+    getUsers: [User],
+    getPedido: [Pedido]
   }
 
   input PlatilloInput {

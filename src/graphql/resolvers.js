@@ -2,6 +2,7 @@ import { createPlatillo, getPlatillos } from '../actions/platilloActions'
 import { createRepartidor, getRepartidores } from '../actions/repartidorActions'
 import { addRestaurant,  getRestaurants } from '../actions/restaurantActions'
 import { createUser, getUsers } from '../actions/usuarioActions'
+import { getPedidosById } from '../actions/pedidosActions'
 
 const resolvers = {
   Query: {
@@ -23,6 +24,13 @@ const resolvers = {
     getUsers: async () => {
       try {
         return getUsers()
+      } catch (error) {
+        return error
+      }
+    },
+    getPedidosById: async (parent, { data }, context, info) => {
+      try {
+        return await getPedidosById()
       } catch (error) {
         return error
       }

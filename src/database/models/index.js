@@ -10,13 +10,13 @@ import restaurantSchema from '../schemas/restaurantSchema'
 const UserModel = mongoose.model('usuarios', userSchema)
 const RepartidorModel = mongoose.model('repartidor', repartidorSchema)
 const PlatilloModel = mongoose.model('platillos', platilloSchema)
-const oderModel = mongoose.model('order', pedidoSchema)
+const PedidoModel = mongoose.model('order', pedidoSchema)
 const RestaurantModel = mongoose.model('restaurantes', restaurantSchema)
 
 module.exports = {
   UserModel,
   RepartidorModel,
   PlatilloModel,
-  oderModel,
+  PedidoModel,
   RestaurantModel
 }
