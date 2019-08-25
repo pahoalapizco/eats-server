@@ -10,7 +10,7 @@ import
 } from '../../config/globals'
 
 const Schema = mongoose.Schema
-const metodoPago = ['PayPal', 'Tarjeta', 'Ejectivo']
+const metodoPago = ['PayPal', 'Tarjeta', 'Efectivo']
 const estatus = [PEDIDO_PENDIENTE, PEDIDO_PROCESO, PEDIDO_ENVIADO, PEDIDO_ETREGADO]
 
 const pedidoSchema = new Schema({
