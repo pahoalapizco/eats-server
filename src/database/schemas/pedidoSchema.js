@@ -14,17 +14,17 @@ const metodoPago = ['PayPal', 'Tarjeta', 'Efectivo']
 const estatus = [PEDIDO_PENDIENTE, PEDIDO_PROCESO, PEDIDO_ENVIADO, PEDIDO_ETREGADO]
 
 const pedidoSchema = new Schema({
-  restaurantID: {
+  restaurant: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'restaurantes'
   },
-  usuarioID: {
+  usuario: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'usuarios'
   },
-  repartidorID: {
+  repartidor: {
     type: Schema.Types.ObjectId,
     ref: 'repartidores'
   },
@@ -48,9 +48,10 @@ const pedidoSchema = new Schema({
     enum: estatus
   }],
   detail: [{
-    platilloID: {
+    platillo: {
       type: Schema.Types.ObjectId,
-      required: true
+      required: true,
+      ref: 'platillos'
     },
     cantidad: {
       type: Number,

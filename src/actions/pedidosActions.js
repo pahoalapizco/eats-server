@@ -25,7 +25,11 @@ const updatePedido = async (filter, update) => {
 
 const getPedidos = async () => {
   try {
-    return await PedidoModel.find().populate('repartidores')
+    const pedidos = await PedidoModel.find()
+      .populate('repartidor')
+      .populate('restaurant')
+      .populate('detail.platillo')
+    return pedidos
   } catch (error) {
     return error
   }
@@ -38,7 +42,7 @@ const takePedido = async (pedidoID, repartidorID) => {
     await updateRepartidor(filter, update)
 
     filter = { _id: pedidoID }
-    update = { $push: { estatus: PEDIDO_PROCESO } }
+    update = { $push: { estatus: PEDIDO_PROCESO }, $set: { repartidor: repartidorID } }
     return await updatePedido(filter, update)
   } catch (error) {
     return error

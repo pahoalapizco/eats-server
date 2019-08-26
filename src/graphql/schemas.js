@@ -1,6 +1,17 @@
 import { gql } from 'apollo-server'
 
 const typesDefs = gql`
+  enum MetodoPago {
+    PayPal
+    Tarjeta
+    Efectivo
+  }
+  enum Vehiculos {
+    Bicicleta
+    Motocicleta
+    Automovil
+  }
+
   type Platillo {
     _id: ID,
     name: String,
@@ -26,7 +37,8 @@ const typesDefs = gql`
     lastname: String,
     email: String,
     password: String,
-    phonenumber: String
+    phonenumber: String,
+    vehiculo: String
   }
 
   type User {
@@ -39,8 +51,8 @@ const typesDefs = gql`
 
   type Pedido {
     _id: ID
-    restaurantID: ID,
-    usuarioID: ID,
+    restaurant: Restaurant,
+    usuario: ID,
     repartidor: Repartidor,
     total: Float,
     address: String,
@@ -50,7 +62,7 @@ const typesDefs = gql`
   }
 
   type Detail {
-    platilloID: ID,
+    platillo: Platillo,
     cantidad: Int,
     importe: Float
   }
@@ -78,11 +90,12 @@ const typesDefs = gql`
   }
 
   input RepartidorInput {
-    name: String,
-    lastname: String,
-    email: String,
-    password: String,
-    phonenumber: String
+    name: String!,
+    lastname: String!,
+    email: String!,
+    password: String!,
+    phonenumber: String!,
+    vehiculo: Vehiculos
   }
 
   input UserInput {
@@ -94,17 +107,17 @@ const typesDefs = gql`
   }
 
   input PedidoInput {
-    restaurantID: ID,
-    usuarioID: ID,
-    repartidorID: ID,
+    restaurant: ID,
+    usuario: ID,
+    repartidor: ID,
     total: Float,
     address: String,
-    metodoPago: String,
+    metodoPago: MetodoPago,
     detail: [DetailInput]
   }
 
   input DetailInput {
-    platilloID: ID,
+    platillo: ID,
     cantidad: Int,
     importe: Float
   }

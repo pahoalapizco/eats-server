@@ -30,7 +30,7 @@ const repartidorSchema = new Schema({
   img: {
     type: String
   },
-  vehicle: {
+  vehiculo: {
     type: String,
     default: 'Motocicleta',
     enum: vehiculos
