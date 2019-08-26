@@ -13,7 +13,9 @@ const getRepartidores = async () => {
   try {
     const repartidores = await RepartidorModel.find()
       .populate('pedidos')
+      .populate('calificaciones')
       .exec()
+      console.log(repartidores[0].calificaciones[0].estrellas)
     return repartidores
   } catch (error) {
     return error

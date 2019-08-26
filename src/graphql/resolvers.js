@@ -4,6 +4,7 @@ import { addRestaurant, getRestaurants } from '../actions/restaurantActions'
 import { createUser, getUsers } from '../actions/usuarioActions'
 import { addPedido, getPedidos, takePedido, updatePedido } from '../actions/pedidosActions'
 import { getCategoria, addCategoria } from '../actions/categoriaActions'
+import { calificarRepartidor } from '../actions/calificacionActions'
 
 const resolvers = {
   Query: {
@@ -28,6 +29,14 @@ const resolvers = {
         const update = { $push: { 'estatus': Estatus } }
         const pedidoActualizado = await updatePedido(filter, update)
         return pedidoActualizado
+      } catch (error) {
+        return error
+      }
+    },
+    calificarRepartidor: async (parent, { data }) => { 
+      try {
+        const calificacion = await calificarRepartidor(data)
+        return calificacion
       } catch (error) {
         return error
       }

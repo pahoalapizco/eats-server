@@ -12,6 +12,7 @@ const typesDefs = gql`
     Automovil
   }
 
+
   type Platillo {
     _id: ID,
     name: String,
@@ -40,7 +41,8 @@ const typesDefs = gql`
     password: String,
     phonenumber: String,
     vehiculo: String,
-    pedidos: [Pedido]
+    pedidos: [Pedido],
+    calificaciones: [Calificacion]
   }
 
   type User {
@@ -75,6 +77,12 @@ const typesDefs = gql`
     platillos: [Platillo]
   }
 
+  type Calificacion {
+    _id: ID,
+    estrellas: Int,
+    comentario: String
+  }
+  
   input PlatilloInput {
     name: String!,
     description: String,
@@ -129,6 +137,12 @@ const typesDefs = gql`
     name: String
   }
  
+  input CalificacionInput {
+    estrellas: Int!,
+    comentario: String,
+    repartidor: ID!
+  }
+
   type Query {
     getCategoria: [Categoria],
     getPlatillos: [Platillo],
@@ -146,7 +160,8 @@ const typesDefs = gql`
     addUser(data: UserInput) : User,
     addPedido(data: PedidoInput) : Pedido,
     takePedido(pedidoID: ID, repartidorID: ID) : Pedido,
-    actualizarPedido(pedidoID: ID, Estatus: Int) : Pedido
+    actualizarPedido(pedidoID: ID, Estatus: Int) : Pedido,
+    calificarRepartidor(data: CalificacionInput) : Calificacion
   },
 
 `

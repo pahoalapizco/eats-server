@@ -38,6 +38,10 @@ const repartidorSchema = new Schema({
   pedidos: [{
     type: Schema.Types.ObjectId,
     ref: 'pedidos'
+  }],
+  calificaciones: [{
+    type: Schema.Types.ObjectId,
+    ref: 'calificaciones'
   }]
 }, { timestamps: true })
 
