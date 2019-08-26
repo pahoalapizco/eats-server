@@ -1,12 +1,12 @@
 'use strict'
 
 import mongoose from 'mongoose'
-import 
-{ 
+import
+{
   PEDIDO_PENDIENTE,
   PEDIDO_PROCESO,
   PEDIDO_ENVIADO,
-  PEDIDO_ETREGADO 
+  PEDIDO_ETREGADO
 } from '../../config/globals'
 
 const Schema = mongoose.Schema
@@ -51,7 +51,7 @@ const pedidoSchema = new Schema({
     platilloID: {
       type: Schema.Types.ObjectId,
       required: true
-    }, 
+    },
     cantidad: {
       type: Number,
       required: true

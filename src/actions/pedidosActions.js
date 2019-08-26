@@ -6,7 +6,7 @@ const addPedido = async (pedido) => {
   try {
     const pedidoCreated = await PedidoModel.create(pedido)
     const filter = { _id: pedidoCreated._id }
-    const update = { $push: { 'estatus': PEDIDO_PENDIENTE } }
+    const update = { $push: { estatus: PEDIDO_PENDIENTE } }
     await updatePedido(filter, update)
 
     return pedidoCreated
@@ -19,26 +19,26 @@ const updatePedido = async (filter, update) => {
   try {
     return await PedidoModel.findOneAndUpdate(filter, update, { new: true })
   } catch (error) {
-    return error;
+    return error
   }
 }
 
 const getPedidos = async () => {
- try {
-  return await PedidoModel.find().populate('repartidores')
- } catch (error) {
-   return error
- }
+  try {
+    return await PedidoModel.find().populate('repartidores')
+  } catch (error) {
+    return error
+  }
 }
 
 const takePedido = async (pedidoID, repartidorID) => {
   try {
     let filter = { _id: repartidorID }
-    let update = { $push: { 'pedidos': pedidoID } }
+    let update = { $push: { pedidos: pedidoID } }
     await updateRepartidor(filter, update)
 
     filter = { _id: pedidoID }
-    update = { $push: { 'estatus': PEDIDO_PROCESO }}
+    update = { $push: { estatus: PEDIDO_PROCESO } }
     return await updatePedido(filter, update)
   } catch (error) {
     return error

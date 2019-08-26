@@ -5,10 +5,10 @@ const typesDefs = gql`
     _id: ID,
     name: String,
     description: String,
-    type: String,
     price: Float,
     img: String,
-    restaurantID: ID
+    restaurant: Restaurant,
+    categoria: Categoria
   }
 
   type Restaurant {
@@ -55,21 +55,19 @@ const typesDefs = gql`
     importe: Float
   }
 
-  type Query {
-    getPlatillos: [Platillo],
-    getRestaurants: [Restaurant],
-    getRepartidores: [Repartidor],
-    getUsers: [User],
-    getPedidos: [Pedido]
+  type Categoria {
+    _id: ID,
+    name: String,
+    platillos: [Platillo]
   }
 
   input PlatilloInput {
     name: String!,
     description: String,
-    type: String!,
     price: Float!,
     img: String,
-    restaurantID: ID!
+    restaurant: ID!,
+    categoria: ID!
   }
 
   input RestaurantInput {
@@ -111,7 +109,21 @@ const typesDefs = gql`
     importe: Float
   }
 
+  input CategoriaInput {
+    name: String
+  }
+ 
+  type Query {
+    getCategoria: [Categoria],
+    getPlatillos: [Platillo],
+    getRestaurants: [Restaurant],
+    getRepartidores: [Repartidor],
+    getUsers: [User],
+    getPedidos: [Pedido],
+  }
+
   type Mutation {
+    addCategoria(data: CategoriaInput) : Categoria,
     addPlatillo(data: PlatilloInput) : Platillo,
     addRestaurant(data: RestaurantInput) : Restaurant,
     addRepartidor(data: RepartidorInput) : Repartidor,

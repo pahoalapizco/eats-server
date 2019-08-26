@@ -3,9 +3,6 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-const platilloTypes = {
-  values: ['Food', 'Drink', 'Dessert']
-}
 const platilloSchema = new Schema({
   name: {
     type: String,
@@ -14,11 +11,6 @@ const platilloSchema = new Schema({
   description: {
     type: String
   },
-  type: {
-    type: String,
-    default: 'Food',
-    enum: platilloTypes
-  },
   price: {
     type: Number,
     required: true
@@ -26,10 +18,15 @@ const platilloSchema = new Schema({
   img: {
     type: String
   },
-  restaurantID: {
+  restaurant: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'restaurantes'
+  },
+  categoria: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'categorias'
   }
 }, { timestamps: true })
 

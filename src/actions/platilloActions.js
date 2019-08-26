@@ -1,12 +1,19 @@
 import { PlatilloModel } from '../database/models'
 import { updateRestaurant } from './restaurantActions'
+import { updateCategoria } from './categoriaActions'
 
 const createPlatillo = async (platillo) => {
   try {
     const platilloNuevo = await PlatilloModel.create(platillo)
-    const filter = { _id: platillo.restaurantID }
-    const update = { $push: { 'platillos': platilloNuevo._id }}
+    // Actualizar Restaurants
+    let filter = { _id: platillo.restaurant }
+    const update = { $push: { platillos: platilloNuevo._id } }
     await updateRestaurant(filter, update)
+
+    // Actualizar Categorias
+    filter = { _id: platillo.categoria }
+    await updateCategoria(filter, update)
+
     return platilloNuevo
   } catch (error) {
     return error
@@ -15,8 +22,12 @@ const createPlatillo = async (platillo) => {
 
 const getPlatillos = async () => {
   try {
-    return await PlatilloModel.find()
-  } catch(error) {
+    const platillos = await PlatilloModel.find()
+      .populate('categoria', 'name')
+      .populate('restaurant', 'name')
+    console.log(`platillos: ${platillos[0].categoria}`)
+    return platillos
+  } catch (error) {
     return error
   }
 }
