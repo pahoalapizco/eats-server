@@ -2,7 +2,8 @@ import { RepartidorModel } from '../database/models'
 
 const createRepartidor = async (repartidor) => {
   try {
-    return await RepartidorModel.create(repartidor)
+    const newRepartidor = await RepartidorModel.create(repartidor)
+    return  newRepartidor
   } catch (error) {
     return error
   }
@@ -10,7 +11,10 @@ const createRepartidor = async (repartidor) => {
 
 const getRepartidores = async () => {
   try {
-    return await RepartidorModel.find()
+    const repartidores = await RepartidorModel.find()
+      .populate('pedidos')
+      .exec()
+    return repartidores
   } catch (error) {
     return error
   }
@@ -18,7 +22,8 @@ const getRepartidores = async () => {
 
 const updateRepartidor = async (filter, update) => {
   try {
-    return await RepartidorModel.findOneAndUpdate(filter, update, { new: true })
+    const repartidorActualizado = await RepartidorModel.findOneAndUpdate(filter, update, { new: true })
+    return repartidorActualizado
   } catch (error) {
     return error
   }

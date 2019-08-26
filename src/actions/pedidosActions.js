@@ -17,7 +17,8 @@ const addPedido = async (pedido) => {
 
 const updatePedido = async (filter, update) => {
   try {
-    return await PedidoModel.findOneAndUpdate(filter, update, { new: true })
+    const pedidoActualizado = await PedidoModel.findOneAndUpdate(filter, update, { new: true })
+    return pedidoActualizado
   } catch (error) {
     return error
   }
@@ -28,6 +29,7 @@ const getPedidos = async () => {
     const pedidos = await PedidoModel.find()
       .populate('repartidor')
       .populate('restaurant')
+      .populate('usuario')
       .populate('detail.platillo')
     return pedidos
   } catch (error) {

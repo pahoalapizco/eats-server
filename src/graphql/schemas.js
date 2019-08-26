@@ -28,6 +28,7 @@ const typesDefs = gql`
     address: String,
     open: String,
     closed: String,
+    phonenumber: String,
     platillos: [Platillo]
   }
 
@@ -38,7 +39,8 @@ const typesDefs = gql`
     email: String,
     password: String,
     phonenumber: String,
-    vehiculo: String
+    vehiculo: String,
+    pedidos: [Pedido]
   }
 
   type User {
@@ -52,7 +54,7 @@ const typesDefs = gql`
   type Pedido {
     _id: ID
     restaurant: Restaurant,
-    usuario: ID,
+    usuario: User,
     repartidor: Repartidor,
     total: Float,
     address: String,
@@ -86,7 +88,8 @@ const typesDefs = gql`
     name: String!,
     address: String!,
     open: String,
-    closed: String
+    closed: String,
+    phonenumber: String
   }
 
   input RepartidorInput {
@@ -103,7 +106,7 @@ const typesDefs = gql`
     lastname: String!,
     email: String!,
     password: String!,
-    phonenumber: String
+    phonenumber: String!
   }
 
   input PedidoInput {
@@ -142,7 +145,8 @@ const typesDefs = gql`
     addRepartidor(data: RepartidorInput) : Repartidor,
     addUser(data: UserInput) : User,
     addPedido(data: PedidoInput) : Pedido,
-    takePedido(pedidoID: ID, repartidorID: ID) : Pedido
+    takePedido(pedidoID: ID, repartidorID: ID) : Pedido,
+    actualizarPedido(pedidoID: ID, Estatus: Int) : Pedido
   },
 
 `

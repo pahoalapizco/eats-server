@@ -2,7 +2,7 @@ import { createPlatillo, getPlatillos } from '../actions/platilloActions'
 import { createRepartidor, getRepartidores } from '../actions/repartidorActions'
 import { addRestaurant, getRestaurants } from '../actions/restaurantActions'
 import { createUser, getUsers } from '../actions/usuarioActions'
-import { addPedido, getPedidos, takePedido } from '../actions/pedidosActions'
+import { addPedido, getPedidos, takePedido, updatePedido } from '../actions/pedidosActions'
 import { getCategoria, addCategoria } from '../actions/categoriaActions'
 
 const resolvers = {
@@ -21,8 +21,17 @@ const resolvers = {
     addRepartidor: async (parent, { data }) => await createRepartidor(data),
     addUser: async (parent, { data }) => await createUser(data),
     addPedido: async (parent, { data }) => await addPedido(data),
-    takePedido: async (parent, { pedidoID, repartidorID }) => await takePedido(pedidoID, repartidorID)
-
+    takePedido: async (parent, { pedidoID, repartidorID }) => await takePedido(pedidoID, repartidorID),
+    actualizarPedido: async (parent, { pedidoID, Estatus }) => {
+      try {
+        const filter = { _id: pedidoID }
+        const update = { $push: { 'estatus': Estatus } }
+        const pedidoActualizado = await updatePedido(filter, update)
+        return pedidoActualizado
+      } catch (error) {
+        return error
+      }
+    }
   }
 }
 

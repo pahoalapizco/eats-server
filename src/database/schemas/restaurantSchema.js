@@ -10,6 +10,9 @@ const restaurantSchema = new Schema({
     type: String,
     required: true
   },
+  phonenumber: {
+    type: String
+  },
   open: {
     type: String
   },
