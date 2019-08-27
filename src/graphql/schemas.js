@@ -163,6 +163,7 @@ const typesDefs = gql`
     takePedido(pedidoID: ID, repartidorID: ID) : Pedido,
     actualizarPedido(pedidoID: ID, Estatus: Int) : Pedido,
     calificarRepartidor(data: CalificacionInput) : Calificacion
+    login(email: String, password: String) : User
   },
 
 `

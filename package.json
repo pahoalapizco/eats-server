@@ -20,7 +20,10 @@
   "homepage": "https://github.com/pahoalapizco/eats-server#readme",
   "dependencies": {
     "apollo-server": "^2.8.2",
+    "apollo-server-express": "^2.9.0",
+    "bcrypt": "^3.0.6",
     "graphql": "^14.4.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.10"
   },
   "devDependencies": {

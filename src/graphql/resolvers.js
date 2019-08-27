@@ -1,7 +1,7 @@
 import { createPlatillo, getPlatillos } from '../actions/platilloActions'
 import { createRepartidor, getRepartidores } from '../actions/repartidorActions'
 import { addRestaurant, getRestaurants } from '../actions/restaurantActions'
-import { createUser, getUsers } from '../actions/usuarioActions'
+import { createUser, getUsers, login } from '../actions/usuarioActions'
 import { addPedido, getPedidos, takePedido, updatePedido } from '../actions/pedidosActions'
 import { getCategoria, addCategoria } from '../actions/categoriaActions'
 import { calificarRepartidor } from '../actions/calificacionActions'
@@ -21,6 +21,14 @@ const resolvers = {
     addRestaurant: async (parent, { data }) => await addRestaurant(data),
     addRepartidor: async (parent, { data }) => await createRepartidor(data),
     addUser: async (parent, { data }) => await createUser(data),
+    login: async(parent, { email, password }) => {
+      try {
+        const user = await login(email, password)
+        return user
+      } catch (error) {
+        return error
+      }
+    },
     addPedido: async (parent, { data }) => await addPedido(data),
     takePedido: async (parent, { pedidoID, repartidorID }) => await takePedido(pedidoID, repartidorID),
     actualizarPedido: async (parent, { pedidoID, Estatus }) => {
