@@ -15,7 +15,14 @@ const getRepartidores = async () => {
       .populate('pedidos')
       .populate('calificaciones')
       .exec()
-      console.log(repartidores[0].calificaciones[0].estrellas)
+      repartidores.forEach((repartidor, index) => {
+        let totalEstrellas = 0  
+        repartidor.calificaciones.forEach(calificacion => {
+          totalEstrellas += calificacion.estrellas
+        })
+        const totalCalificaciones = repartidor.calificaciones.length === 0 ? 1 :  repartidor.calificaciones.length
+        repartidores[index].promedio = totalEstrellas / totalCalificaciones
+      })
     return repartidores
   } catch (error) {
     return error

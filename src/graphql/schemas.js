@@ -42,7 +42,8 @@ const typesDefs = gql`
     phonenumber: String,
     vehiculo: String,
     pedidos: [Pedido],
-    calificaciones: [Calificacion]
+    calificaciones: [Calificacion],
+    promedio: Int
   }
 
   type User {
