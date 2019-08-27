@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server'
 
 const typesDefs = gql`
+  directive @AuthDirective on QUERY | FIELD_DEFINITION | FIELD
+
   enum MetodoPago {
     PayPal
     Tarjeta
@@ -84,6 +86,10 @@ const typesDefs = gql`
     comentario: String
   }
   
+  type Token {
+    token: String
+  }
+
   input PlatilloInput {
     name: String!,
     description: String,
@@ -145,25 +151,25 @@ const typesDefs = gql`
   }
 
   type Query {
-    getCategoria: [Categoria],
-    getPlatillos: [Platillo],
-    getRestaurants: [Restaurant],
-    getRepartidores: [Repartidor],
-    getUsers: [User],
-    getPedidos: [Pedido],
+    getCategoria: [Categoria]
+    getPlatillos: [Platillo]
+    getRestaurants: [Restaurant]
+    getRepartidores: [Repartidor]
+    getUsers: [User]
+    getPedidos: [Pedido] @AuthDirective
   }
 
   type Mutation {
-    addCategoria(data: CategoriaInput) : Categoria,
-    addPlatillo(data: PlatilloInput) : Platillo,
-    addRestaurant(data: RestaurantInput) : Restaurant,
-    addRepartidor(data: RepartidorInput) : Repartidor,
-    addUser(data: UserInput) : User,
-    addPedido(data: PedidoInput) : Pedido,
-    takePedido(pedidoID: ID, repartidorID: ID) : Pedido,
-    actualizarPedido(pedidoID: ID, Estatus: Int) : Pedido,
+    addCategoria(data: CategoriaInput) : Categoria  @AuthDirective
+    addPlatillo(data: PlatilloInput) : Platillo
+    addRestaurant(data: RestaurantInput) : Restaurant
+    addRepartidor(data: RepartidorInput) : Repartidor
+    addUser(data: UserInput) : User
+    addPedido(data: PedidoInput) : Pedido
+    takePedido(pedidoID: ID, repartidorID: ID) : Pedido
+    actualizarPedido(pedidoID: ID, Estatus: Int) : Pedido
     calificarRepartidor(data: CalificacionInput) : Calificacion
-    login(email: String, password: String) : User
+    login(email: String, password: String) : Token
   },
 
 `

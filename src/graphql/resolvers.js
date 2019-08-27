@@ -13,7 +13,14 @@ const resolvers = {
     getRepartidores: async () => await getRepartidores(),
     getRestaurants: async () => await getRestaurants(),
     getUsers: async () => await getUsers(),
-    getPedidos: async () => await getPedidos()
+    getPedidos: async (parent, args, context, info) => {
+      try {
+        const pedidos = await getPedidos()
+        return pedidos
+      } catch (error) {
+        return error
+      }
+    }
   },
   Mutation: {
     addCategoria: async (parent, { data }) => await addCategoria(data),

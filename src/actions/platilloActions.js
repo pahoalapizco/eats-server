@@ -25,7 +25,6 @@ const getPlatillos = async () => {
     const platillos = await PlatilloModel.find()
       .populate('categoria', 'name')
       .populate('restaurant', 'name')
-    console.log(`platillos: ${platillos[0].categoria}`)
     return platillos
   } catch (error) {
     return error
