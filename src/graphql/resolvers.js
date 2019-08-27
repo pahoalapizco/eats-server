@@ -13,9 +13,10 @@ const resolvers = {
     getRepartidores: async () => await getRepartidores(),
     getRestaurants: async () => await getRestaurants(),
     getUsers: async () => await getUsers(),
-    getPedidos: async (parent, args, context, info) => {
+    getPedidos: async (parent, { data }, context, info) => {
       try {
-        const pedidos = await getPedidos()
+        const filter =  { ...data }
+        const pedidos = await getPedidos(filter)
         return pedidos
       } catch (error) {
         return error

@@ -24,11 +24,11 @@ const updatePedido = async (filter, update) => {
   }
 }
 
-const getPedidos = async () => {
+const getPedidos = async (filter) => {
   try {
-    const pedidos = await PedidoModel.find()
+    const pedidos = await PedidoModel.find(filter)
       .populate('repartidor')
-      .populate('restaurant')
+      .populate('restaurant', 'name')
       .populate('usuario')
       .populate('detail.platillo')
     return pedidos

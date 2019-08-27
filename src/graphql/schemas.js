@@ -152,20 +152,20 @@ const typesDefs = gql`
 
   type Query {
     getCategoria: [Categoria]
-    getPlatillos: [Platillo]
+    getPlatillos: [Platillo] @AuthDirective
     getRestaurants: [Restaurant]
     getRepartidores: [Repartidor]
     getUsers: [User]
-    getPedidos: [Pedido] @AuthDirective
+    getPedidos(data: PedidoInput): [Pedido]
   }
 
   type Mutation {
-    addCategoria(data: CategoriaInput) : Categoria  @AuthDirective
+    addCategoria(data: CategoriaInput) : Categoria  
     addPlatillo(data: PlatilloInput) : Platillo
     addRestaurant(data: RestaurantInput) : Restaurant
     addRepartidor(data: RepartidorInput) : Repartidor
     addUser(data: UserInput) : User
-    addPedido(data: PedidoInput) : Pedido
+    addPedido(data: PedidoInput) : Pedido @AuthDirective
     takePedido(pedidoID: ID, repartidorID: ID) : Pedido
     actualizarPedido(pedidoID: ID, Estatus: Int) : Pedido
     calificarRepartidor(data: CalificacionInput) : Calificacion
