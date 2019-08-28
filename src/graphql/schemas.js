@@ -150,13 +150,18 @@ const typesDefs = gql`
     repartidor: ID!
   }
 
+  type Subscription {
+    pedidoAsignado: Repartidor
+  }
+
   type Query {
     getCategoria: [Categoria]
     getPlatillos: [Platillo] @AuthDirective
+    getPlatillo(platilloID: ID): Platillo @AuthDirective
     getRestaurants: [Restaurant]
     getRepartidores: [Repartidor]
     getUsers: [User]
-    getPedidos(data: PedidoInput): [Pedido]
+    getPedidos(data: PedidoInput): [Pedido] @AuthDirective
   }
 
   type Mutation {

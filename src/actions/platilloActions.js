@@ -24,8 +24,19 @@ const getPlatillos = async () => {
   try {
     const platillos = await PlatilloModel.find()
       .populate('categoria', 'name')
-      .populate('restaurant', 'name')
+      .populate('restaurant')
     return platillos
+  } catch (error) {
+    return error
+  }
+}
+
+const getPlatillo = async (platilloID) => {
+  try {
+    const platillo = await PlatilloModel.findOne({ _id: platilloID })
+      .populate('categoria', 'name')
+      .populate('restaurant')
+    return platillo
   } catch (error) {
     return error
   }
@@ -33,5 +44,6 @@ const getPlatillos = async () => {
 
 module.exports = {
   createPlatillo,
-  getPlatillos
+  getPlatillos,
+  getPlatillo
 }

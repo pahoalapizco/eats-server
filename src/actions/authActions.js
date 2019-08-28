@@ -28,17 +28,21 @@ class AuthDirective extends SchemaDirectiveVisitor {
 // paso 4 - si es un token valido busca al usuario en la base de datos y asigna la informacion del usuario en el contexto
 // paso 5 - si hay algun error siempre regresa lo que trae req
 const getContext = (req) => {
-  const token = req.headers.authorization;
-  if (typeof token === typeof undefined) return req;
-  return JWT.verify(token, process.env.SECRET, async function (err, result) {
-    if (err) return req;
-    try {
-      const user = await getUsers({ _id: result._id })
-      return { ...req, user };
-    } catch (error) {
-      return req
-    }
-  });
+  try {
+    const token = req.headers.authorization
+    if (typeof token === typeof undefined) { return req }
+    return JWT.verify(token, process.env.SECRET, async function(err, result) {
+      if (err) { return req }
+      try {
+        const user = await getUsers({ _id: result._id })
+        return { ...req, user }
+      } catch (e) {
+        return req
+      }
+    })
+  } catch (error) {
+    return req
+  }
 }
 
 module.exports = {

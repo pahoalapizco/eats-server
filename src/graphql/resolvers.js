@@ -1,12 +1,21 @@
-import { createPlatillo, getPlatillos } from '../actions/platilloActions'
-import { createRepartidor, getRepartidores } from '../actions/repartidorActions'
+import { createPlatillo, getPlatillos, getPlatillo } from '../actions/platilloActions'
+import { createRepartidor, getRepartidores, getRepartidor } from '../actions/repartidorActions'
 import { addRestaurant, getRestaurants } from '../actions/restaurantActions'
 import { createUser, getUsers, login } from '../actions/usuarioActions'
 import { addPedido, getPedidos, takePedido, updatePedido } from '../actions/pedidosActions'
 import { getCategoria, addCategoria } from '../actions/categoriaActions'
 import { calificarRepartidor } from '../actions/calificacionActions'
+import { PubSub } from 'apollo-server'
+
+const pubSub = new PubSub()
+const PEDIDO_ASIGNADO = 'PEDIDO_ASIGNADO'
 
 const resolvers = {
+  Subscription: {
+    pedidoAsignado: {
+      subscribe: (parent, args, context, info) => pubSub.asyncIterator([PEDIDO_ASIGNADO])
+    },
+  },
   Query: {
     getCategoria: async () => await getCategoria(),
     getPlatillos: async () => await getPlatillos(),
@@ -18,6 +27,14 @@ const resolvers = {
         const filter =  { ...data }
         const pedidos = await getPedidos(filter)
         return pedidos
+      } catch (error) {
+        return error
+      }
+    },
+    getPlatillo: async (parent, { platilloID }, context, info) => { 
+      try {
+        const platillo = await getPlatillo(platilloID)
+        return platillo
       } catch (error) {
         return error
       }
@@ -38,7 +55,17 @@ const resolvers = {
       }
     },
     addPedido: async (parent, { data }) => await addPedido(data),
-    takePedido: async (parent, { pedidoID, repartidorID }) => await takePedido(pedidoID, repartidorID),
+    takePedido: async (parent, { pedidoID, repartidorID }, context, info) => {
+      try {
+        const pedido = await takePedido(pedidoID, repartidorID)
+        const repartidor = await getRepartidor(repartidorID)
+        // console.log(repartidor)
+        pubSub.publish(PEDIDO_ASIGNADO, { pedidoAsignado: repartidor })
+        return pedido
+      } catch (error) {
+        return error
+      }
+    },
     actualizarPedido: async (parent, { pedidoID, Estatus }) => {
       try {
         const filter = { _id: pedidoID }
