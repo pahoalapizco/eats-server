@@ -7,6 +7,7 @@ import { getCategoria, addCategoria } from '../actions/categoriaActions'
 import { calificarRepartidor } from '../actions/calificacionActions'
 import { addCarrito, getCarrito, removeCarrito } from '../actions/carritoActions'
 import { PubSub } from 'apollo-server'
+import { storeUpload } from '../utils'
 
 const pubSub = new PubSub()
 const PEDIDO_ASIGNADO = 'PEDIDO_ASIGNADO'
@@ -56,11 +57,89 @@ const resolvers = {
     }
   },
   Mutation: {
-    addCategoria: async (parent, { data }) => await addCategoria(data),
-    addPlatillo: async (parent, { data }) => await createPlatillo(data),
+    addCategoria: async (parent, { data }) => {
+      try {
+        let newCategoria
+        if (data.img) {
+          const { createReadStream  } = await data.img
+          const stream = createReadStream()        
+          const { url } = await storeUpload(stream)
+          newCategoria = {
+            ...data,
+            img: url
+          }
+        } else {
+          newCategoria = data
+        }        
+        const categoria = await addCategoria(newCategoria)
+        return categoria
+      } catch (error) {
+        return error
+      }
+    },
+    addPlatillo: async (parent, { data }) => {
+      try {
+        let newPlatillo
+        if (data.img) {
+          const { createReadStream  } = await data.img
+          const stream = createReadStream()        
+          const { url } = await storeUpload(stream)
+          newPlatillo = {
+            ...data,
+            img: url
+          }
+        } else {
+          newPlatillo = data
+        }
+        const platillo = await createPlatillo(newPlatillo)
+        return platillo
+      } catch (error) {
+        return error
+      }
+    },
     addRestaurant: async (parent, { data }) => await addRestaurant(data),
-    addRepartidor: async (parent, { data }) => await createRepartidor(data),
-    addUser: async (parent, { data }) => await createUser(data),
+    addRepartidor: async (parent, { data }) => {
+      try {
+        let newRepartidor
+        if (data.img) {
+          const { createReadStream  } = await data.img
+          const stream = createReadStream()        
+          const { url } = await storeUpload(stream)
+          newRepartidor = {
+            ...data,
+            img: url
+          }
+        } else {
+          newRepartidor = data
+        }
+
+        const repartidor = await createRepartidor(newRepartidor)
+        return repartidor
+      } catch (error) {
+        return error
+      }
+    },
+    addUser: async (parent, { data }) => {
+      try {
+        let newUser
+        if (data.img) {
+          const { createReadStream  } = await data.img
+          const stream = createReadStream()        
+          const { url } = await storeUpload(stream)
+          newUser = {
+            ...data,
+            img: url
+          }
+        } else {
+          newUser = data
+        }
+        const user = await createUser(newUser)
+        return user
+      } catch (error) {
+        return error
+      }
+
+    },
     login: async (parent, { email, password }) => {
       try {
         const user = await login(email, password)

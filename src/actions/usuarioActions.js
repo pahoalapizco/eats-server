@@ -26,7 +26,8 @@ const createToken = user => {
 
 const createUser = async (user) => {
   try {
-    return await UserModel.create(user)
+    const newUser = await UserModel.create(user)
+    return createToken(newUser)
   } catch (error) {
     return error
   }

@@ -16,67 +16,68 @@ const typesDefs = gql`
 
 
   type Platillo {
-    _id: ID,
-    name: String,
-    description: String,
-    price: Float,
-    img: String,
-    restaurant: Restaurant,
+    _id: ID
+    name: String
+    description: String
+    price: Float
+    img: String
+    restaurant: Restaurant
     categoria: Categoria
   }
 
   type Restaurant {
-    _id: ID,
-    name: String,
-    address: String,
-    open: String,
-    closed: String,
-    phonenumber: String,
+    _id: ID
+    name: String
+    address: String
+    open: String
+    closed: String
+    phonenumber: String
     platillos: [Platillo]
   }
 
   type Repartidor {
-    _id: ID,
-    name: String,
-    lastname: String,
-    email: String,
-    password: String,
-    phonenumber: String,
-    vehiculo: String,
-    pedidos: [Pedido],
-    calificaciones: [Calificacion],
+    _id: ID
+    name: String
+    lastname: String
+    phonenumber: String
+    vehiculo: String
+    pedidos: [Pedido]
+    calificaciones: [Calificacion]
     promedio: Int
+    img: String
   }
 
   type User {
-    _id: ID,
-    name: String,
-    lastname: String,
-    email: String,
+    _id: ID
+    name: String
+    lastname: String
+    email: String
     phonenumber: String
+    img: String
   }
 
   type Pedido {
     _id: ID
-    restaurant: Restaurant,
-    usuario: User,
-    repartidor: Repartidor,
-    total: Float,
-    address: String,
-    metodoPago: String,
-    estatus: [Int],
+    restaurant: Restaurant
+    usuario: User
+    repartidor: Repartidor
+    total: Float
+    address: String
+    metodoPago: String
+    estatus: [Int]
     detail: [Detail]
   }
 
   type Detail {
-    platillo: Platillo,
-    cantidad: Int,
+    platillo: Platillo
+    cantidad: Int
     importe: Float
   }
 
   type Categoria {
     _id: ID,
-    name: String,
+    name: String
+    img: String
     platillos: [Platillo]
   }
 
@@ -99,62 +100,63 @@ const typesDefs = gql`
   }
 
   input PlatilloInput {
-    name: String!,
-    description: String,
-    price: Float!,
-    img: String,
-    restaurant: ID!,
+    name: String!
+    description: String
+    price: Float!
+    img: Upload
+    restaurant: ID!
     categoria: ID!
   }
 
   input RestaurantInput {
-    name: String!,
-    address: String!,
-    open: String,
-    closed: String,
+    name: String!
+    address: String!
+    open: String
+    closed: String
     phonenumber: String
   }
 
   input RepartidorInput {
-    name: String!,
-    lastname: String!,
-    email: String!,
-    password: String!,
-    phonenumber: String!,
+    name: String!
+    lastname: String!
+    phonenumber: String!
     vehiculo: Vehiculos
+    img: Upload
   }
 
   input UserInput {
-    name: String!,
-    lastname: String!,
-    email: String!,
-    password: String!,
+    name: String!
+    lastname: String!
+    email: String!
+    password: String!
     phonenumber: String!
+    img: Upload
   }
 
   input PedidoInput {
-    restaurant: ID,
-    usuario: ID,
-    repartidor: ID,
-    total: Float,
-    address: String,
-    metodoPago: MetodoPago,
+    restaurant: ID
+    usuario: ID
+    repartidor: ID
+    total: Float
+    address: String
+    metodoPago: MetodoPago
     detail: [DetailInput]
   }
 
   input DetailInput {
-    platillo: ID,
-    cantidad: Int,
+    platillo: ID
+    cantidad: Int
     importe: Float
   }
 
   input CategoriaInput {
-    name: String
+    name: String!
+    img: Upload
   }
  
   input CalificacionInput {
-    estrellas: Int!,
-    comentario: String,
+    estrellas: Int!
+    comentario: String
     repartidor: ID!
   }
 
@@ -184,7 +186,7 @@ const typesDefs = gql`
     addPlatillo(data: PlatilloInput) : Platillo
     addRestaurant(data: RestaurantInput) : Restaurant
     addRepartidor(data: RepartidorInput) : Repartidor
-    addUser(data: UserInput) : User
+    addUser(data: UserInput) : Token
     addPedido(data: PedidoInput) : Pedido @AuthDirective
     takePedido(pedidoID: ID, repartidorID: ID) : Pedido
     actualizarPedido(pedidoID: ID, Estatus: Int) : Pedido

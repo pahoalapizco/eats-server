@@ -7,6 +7,9 @@ const categoriaSchema = new Schema({
     type: String,
     required: true
   },
+  img: {
+    type: String
+  },
   platillos: [{
     type: Schema.Types.ObjectId,
     ref: 'platillos'
