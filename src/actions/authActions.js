@@ -1,4 +1,4 @@
-import { getUsers } from '../actions/usuarioActions'
+import { getUser } from '../actions/usuarioActions'
 require('dotenv').config() // Variables de entorno (desarrollo)
 
 const JWT = require('jsonwebtoken')
@@ -34,7 +34,7 @@ const getContext = (req) => {
     return JWT.verify(token, process.env.SECRET, async function (err, result) {
       if (err) { return req }
       try {
-        const user = await getUsers({ _id: result._id })
+        const user = await getUser({ _id: result._id })
         return { ...req, user }
       } catch (e) {
         return req

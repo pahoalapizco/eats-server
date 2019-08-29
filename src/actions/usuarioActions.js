@@ -32,9 +32,9 @@ const createUser = async (user) => {
   }
 }
 
-const getUsers = async (userID) => {
+const getUser = async (_id) => {
   try {
-    return await UserModel.find()
+    return await UserModel.findOne({ _id })
   } catch (error) {
     return error
   }
@@ -53,6 +53,6 @@ const login = async (email, password) => {
 
 module.exports = {
   createUser,
-  getUsers,
+  getUser,
   login
 }

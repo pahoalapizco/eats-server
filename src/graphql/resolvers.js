@@ -1,7 +1,7 @@
 import { createPlatillo, getPlatillos, getPlatillo } from '../actions/platilloActions'
 import { createRepartidor, getRepartidores, getRepartidor } from '../actions/repartidorActions'
 import { addRestaurant, getRestaurants } from '../actions/restaurantActions'
-import { createUser, getUsers, login } from '../actions/usuarioActions'
+import { createUser, login } from '../actions/usuarioActions'
 import { addPedido, getPedidos, takePedido, updatePedido } from '../actions/pedidosActions'
 import { getCategoria, addCategoria } from '../actions/categoriaActions'
 import { calificarRepartidor } from '../actions/calificacionActions'
@@ -22,7 +22,13 @@ const resolvers = {
     getPlatillos: async () => await getPlatillos(),
     getRepartidores: async () => await getRepartidores(),
     getRestaurants: async () => await getRestaurants(),
-    getUsers: async () => await getUsers(),
+    getUser: async (parent, args, { user }, info) =>{
+      try {
+        return user
+      } catch (error) {
+        return error
+      }
+    },
     getPedidos: async (parent, { data }, context, info) => {
       try {
         const filter = { ...data }
@@ -40,9 +46,9 @@ const resolvers = {
         return error
       }
     },
-    getCarrito: async (parent, { usuarioID }, context, info) => {
+    getCarrito: async (parent, args, { user }, info) => {
       try {
-        const carrito = await getCarrito(usuarioID)
+        const carrito = await getCarrito(user._id)
         return carrito
       } catch (error) {
         return error
@@ -63,12 +69,18 @@ const resolvers = {
         return error
       }
     },
-    addPedido: async (parent, { data }) => await addPedido(data),
+    addPedido: async (parent, { data }) => {
+      try {
+        const pedido = await addPedido(data)
+        return pedido
+      } catch (error) {
+        return error
+      }
+    },
     takePedido: async (parent, { pedidoID, repartidorID }, context, info) => {
       try {
         const pedido = await takePedido(pedidoID, repartidorID)
         const repartidor = await getRepartidor(repartidorID)
-        // console.log(repartidor)
         pubSub.publish(PEDIDO_ASIGNADO, { pedidoAsignado: repartidor })
         return pedido
       } catch (error) {
@@ -93,17 +105,21 @@ const resolvers = {
         return error
       }
     },
-    addCarrito: async (parent, { data }, context, info) => {
+    addCarrito: async (parent, { data }, { user }, info) => {
       try {
-        const carrito = await addCarrito(data)
+        const carritoData = {
+          ...data,
+          usuario: user._id
+        }
+        const carrito = await addCarrito(carritoData)
         return carrito
       } catch (error) {
         return error
       }
     },
-    removeCarrito: async (parent, { usuarioID }, context, info) => {
+    removeCarrito: async (parent, args, { user }, info) => {
       try {
-        const carritoRemove = await removeCarrito(usuarioID)
+        const carritoRemove = await removeCarrito(user._id)
         return carritoRemove
       } catch (error) {
         return error
