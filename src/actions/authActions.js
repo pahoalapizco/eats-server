@@ -1,22 +1,22 @@
-require('dotenv').config(); // Variables de entorno (desarrollo)
+import { getUsers } from '../actions/usuarioActions'
+require('dotenv').config() // Variables de entorno (desarrollo)
 
-const JWT = require('jsonwebtoken');
-import { getUsers } from '../actions/usuarioActions';
+const JWT = require('jsonwebtoken')
 
-const { SchemaDirectiveVisitor, AuthenticationError } = require('apollo-server-express');
+const { SchemaDirectiveVisitor, AuthenticationError } = require('apollo-server-express')
 
 // directiva - valida si esta query necesita un token, de lo contrario no permite ejecutar la consulta
 class AuthDirective extends SchemaDirectiveVisitor {
-  visitFieldDefinition(field) {
-    const { resolve = defaultFieldResolver } = field;
+  visitFieldDefinition (field) {
+    const { resolve = defaultFieldResolver } = field
     field.resolve = async function (...args) {
-      const ctx = args[2];
+      const ctx = args[2]
       if (ctx.user) {
-        return await resolve.apply(this, args);
+        return await resolve.apply(this, args)
       } else {
-        throw new AuthenticationError("You need to be logged in.");
+        throw new AuthenticationError('You need to be logged in.')
       }
-    };
+    }
   }
 }
 
@@ -31,7 +31,7 @@ const getContext = (req) => {
   try {
     const token = req.headers.authorization
     if (typeof token === typeof undefined) { return req }
-    return JWT.verify(token, process.env.SECRET, async function(err, result) {
+    return JWT.verify(token, process.env.SECRET, async function (err, result) {
       if (err) { return req }
       try {
         const user = await getUsers({ _id: result._id })

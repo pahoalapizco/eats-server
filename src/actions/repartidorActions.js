@@ -1,10 +1,10 @@
 import { RepartidorModel } from '../database/models'
-import { isArray } from 'util';
+import { isArray } from 'util'
 
 const createRepartidor = async (repartidor) => {
   try {
     const newRepartidor = await RepartidorModel.create(repartidor)
-    return  newRepartidor
+    return newRepartidor
   } catch (error) {
     return error
   }
@@ -29,12 +29,12 @@ const getRepartidor = async (repartidorID) => {
       .populate('pedidos')
       .populate('calificaciones')
       .exec()
-    
+
     let totalEstrellas = 0
     repartidor.calificaciones.forEach(calificacion => {
       totalEstrellas += calificacion.estrellas
     })
-    const totalCalificaciones = repartidor.calificaciones.length === 0 ? 1 :  repartidor.calificaciones.length
+    const totalCalificaciones = repartidor.calificaciones.length === 0 ? 1 : repartidor.calificaciones.length
     repartidor.promedio = totalEstrellas / totalCalificaciones
 
     return repartidor
@@ -54,11 +54,11 @@ const updateRepartidor = async (filter, update) => {
 
 const calcularCalificacion = (repartidores) => {
   repartidores.forEach((repartidor, index) => {
-    let totalEstrellas = 0  
+    let totalEstrellas = 0
     repartidor.calificaciones.forEach(calificacion => {
       totalEstrellas += calificacion.estrellas
     })
-    const totalCalificaciones = repartidor.calificaciones.length === 0 ? 1 :  repartidor.calificaciones.length
+    const totalCalificaciones = repartidor.calificaciones.length === 0 ? 1 : repartidor.calificaciones.length
     repartidores[index].promedio = totalEstrellas / totalCalificaciones
   })
   return repartidores

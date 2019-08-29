@@ -8,6 +8,7 @@ import pedidoSchema from '../schemas/pedidoSchema'
 import restaurantSchema from '../schemas/restaurantSchema'
 import categoriaSchema from '../schemas/categoriaSchema'
 import calificacionSchema from '../schemas/calificacionSchema'
+import carritoSchema from '../schemas/carritoSchema'
 
 const UserModel = mongoose.model('usuarios', userSchema)
 const RepartidorModel = mongoose.model('repartidores', repartidorSchema)
@@ -16,6 +17,7 @@ const PedidoModel = mongoose.model('pedidos', pedidoSchema)
 const RestaurantModel = mongoose.model('restaurantes', restaurantSchema)
 const CategoriaModel = mongoose.model('categorias', categoriaSchema)
 const CalificacionModel = mongoose.model('calificaciones', calificacionSchema)
+const CarritoModel = mongoose.model('carrito', carritoSchema)
 
 module.exports = {
   UserModel,
@@ -24,5 +26,6 @@ module.exports = {
   PedidoModel,
   RestaurantModel,
   CategoriaModel,
-  CalificacionModel
+  CalificacionModel,
+  CarritoModel
 }

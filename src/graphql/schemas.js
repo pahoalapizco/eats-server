@@ -90,6 +90,14 @@ const typesDefs = gql`
     token: String
   }
 
+  type Carrito {
+    _id: ID
+    usuario: User
+    restaurant: Restaurant
+    total: Float
+    detail: [Detail]
+  }
+
   input PlatilloInput {
     name: String!,
     description: String,
@@ -150,6 +158,13 @@ const typesDefs = gql`
     repartidor: ID!
   }
 
+  input CarritoInput {
+    usuario: ID!
+    restaurant: ID!
+    total: Float!
+    detail: [DetailInput]!
+  }
+
   type Subscription {
     pedidoAsignado: Repartidor
   }
@@ -162,6 +177,7 @@ const typesDefs = gql`
     getRepartidores: [Repartidor]
     getUsers: [User]
     getPedidos(data: PedidoInput): [Pedido] @AuthDirective
+    getCarrito(usuarioID: ID) : Carrito @AuthDirective
   }
 
   type Mutation {
@@ -175,6 +191,8 @@ const typesDefs = gql`
     actualizarPedido(pedidoID: ID, Estatus: Int) : Pedido
     calificarRepartidor(data: CalificacionInput) : Calificacion
     login(email: String, password: String) : Token
+    addCarrito(data: CarritoInput) : Carrito @AuthDirective
+    removeCarrito(usuarioID: ID) : Carrito
   },
 
 `

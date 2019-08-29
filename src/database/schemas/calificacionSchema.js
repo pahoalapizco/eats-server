@@ -1,4 +1,4 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 const estrellas = { values: [1, 2, 3, 4, 5] }
@@ -10,14 +10,14 @@ const calificacionSchema = new Schema({
     enum: estrellas
   },
   comentario: {
-    type: String    
+    type: String
   },
   repartidor: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'repartidores'
   }
-} , { timestamps: true })
+}, { timestamps: true })
 
 mongoose.Types.ObjectId.prototype.valueOf = function () {
   return this.toString()

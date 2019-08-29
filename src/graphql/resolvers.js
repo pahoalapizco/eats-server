@@ -5,6 +5,7 @@ import { createUser, getUsers, login } from '../actions/usuarioActions'
 import { addPedido, getPedidos, takePedido, updatePedido } from '../actions/pedidosActions'
 import { getCategoria, addCategoria } from '../actions/categoriaActions'
 import { calificarRepartidor } from '../actions/calificacionActions'
+import { addCarrito, getCarrito, removeCarrito } from '../actions/carritoActions'
 import { PubSub } from 'apollo-server'
 
 const pubSub = new PubSub()
@@ -14,7 +15,7 @@ const resolvers = {
   Subscription: {
     pedidoAsignado: {
       subscribe: (parent, args, context, info) => pubSub.asyncIterator([PEDIDO_ASIGNADO])
-    },
+    }
   },
   Query: {
     getCategoria: async () => await getCategoria(),
@@ -24,17 +25,25 @@ const resolvers = {
     getUsers: async () => await getUsers(),
     getPedidos: async (parent, { data }, context, info) => {
       try {
-        const filter =  { ...data }
+        const filter = { ...data }
         const pedidos = await getPedidos(filter)
         return pedidos
       } catch (error) {
         return error
       }
     },
-    getPlatillo: async (parent, { platilloID }, context, info) => { 
+    getPlatillo: async (parent, { platilloID }, context, info) => {
       try {
         const platillo = await getPlatillo(platilloID)
         return platillo
+      } catch (error) {
+        return error
+      }
+    },
+    getCarrito: async (parent, { usuarioID }, context, info) => {
+      try {
+        const carrito = await getCarrito(usuarioID)
+        return carrito
       } catch (error) {
         return error
       }
@@ -46,7 +55,7 @@ const resolvers = {
     addRestaurant: async (parent, { data }) => await addRestaurant(data),
     addRepartidor: async (parent, { data }) => await createRepartidor(data),
     addUser: async (parent, { data }) => await createUser(data),
-    login: async(parent, { email, password }) => {
+    login: async (parent, { email, password }) => {
       try {
         const user = await login(email, password)
         return user
@@ -69,17 +78,33 @@ const resolvers = {
     actualizarPedido: async (parent, { pedidoID, Estatus }) => {
       try {
         const filter = { _id: pedidoID }
-        const update = { $push: { 'estatus': Estatus } }
+        const update = { $push: { estatus: Estatus } }
         const pedidoActualizado = await updatePedido(filter, update)
         return pedidoActualizado
       } catch (error) {
         return error
       }
     },
-    calificarRepartidor: async (parent, { data }) => { 
+    calificarRepartidor: async (parent, { data }) => {
       try {
         const calificacion = await calificarRepartidor(data)
         return calificacion
+      } catch (error) {
+        return error
+      }
+    },
+    addCarrito: async (parent, { data }, context, info) => {
+      try {
+        const carrito = await addCarrito(data)
+        return carrito
+      } catch (error) {
+        return error
+      }
+    },
+    removeCarrito: async (parent, { usuarioID }, context, info) => {
+      try {
+        const carritoRemove = await removeCarrito(usuarioID)
+        return carritoRemove
       } catch (error) {
         return error
       }

@@ -1,6 +1,7 @@
 import { PedidoModel } from '../database/models'
 import { PEDIDO_PENDIENTE, PEDIDO_PROCESO } from '../config/globals'
 import { updateRepartidor } from '../actions/repartidorActions'
+import { removeCarrito } from '../actions/carritoActions'
 
 const addPedido = async (pedido) => {
   try {
@@ -9,6 +10,7 @@ const addPedido = async (pedido) => {
     const update = { $push: { estatus: PEDIDO_PENDIENTE } }
     await updatePedido(filter, update)
 
+    await removeCarrito(pedido.usuario)
     return pedidoCreated
   } catch (error) {
     return error
