@@ -1,9 +1,7 @@
-require('dotenv').config()
-
 import { UserModel } from '../database/models'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-
+import { SECRET } from '../config/'
 // Agrega función a Date para agregarle días al día actual.
 Date.prototype.addDay = function (days) {
   const day = new Date(this.valueOf())
@@ -20,7 +18,7 @@ const createToken = user => {
     lastname: user.lastname,
     expiration
   }
-  const token = jwt.sign(payload, process.env.SECRET)
+  const token = jwt.sign(payload, SECRET)
   return { token }
 }
 

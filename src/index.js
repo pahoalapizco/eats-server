@@ -3,10 +3,9 @@ import mongoose from 'mongoose'
 import typeDefs from './graphql/schemas'
 import resolvers from './graphql/resolvers'
 import { getContext, AuthDirective } from './actions/authActions'
+import { DATABASE } from './config/'
 
-require('dotenv').config()
-
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect(DATABASE, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useFindAndModify: false
@@ -26,6 +25,6 @@ const server = new ApolloServer({
   context: async ({ req }) => getContext(req)
 })
 
-server.listen({ port: process.env.PORT }).then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`)
+server.listen({ port: process.env.PORT || 8080}).then(({ url }) => {
+  console.log(`Server ready at ${url}`)
 })

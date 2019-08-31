@@ -1,5 +1,5 @@
 import { getUser } from '../actions/usuarioActions'
-require('dotenv').config() // Variables de entorno (desarrollo)
+import { SECRET } from '../config/'
 
 const JWT = require('jsonwebtoken')
 
@@ -31,7 +31,7 @@ const getContext = (req) => {
   try {
     const token = req.headers.authorization
     if (typeof token === typeof undefined) { return req }
-    return JWT.verify(token, process.env.SECRET, async function (err, result) {
+    return JWT.verify(token, SECRET, async function (err, result) {
       if (err) { return req }
       try {
         const user = await getUser({ _id: result._id })
