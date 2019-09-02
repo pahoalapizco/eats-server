@@ -4,7 +4,7 @@
   "description": "A simple copy of Uber Eats for Devf course - server",
   "main": "index.js",
   "scripts": {
-    "test": "set NODE_ENV=dev&& set PORT=5000&& jest",
+    "test": "set NODE_ENV=test&& set PORT=5000&& jest",
     "start": "node  ./build/index.js",
     "start:dev": "set NODE_ENV=dev&& set PORT=5000&& nodemon --exec babel-node --watch src ./src/index.js",
     "lint": "standard",
@@ -13,7 +13,7 @@
     "build": "npm run  clean && npm run build-server"
   },
   "jest": {
-    "collectCoverage": true,
+    "collectCoverage": false,
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
     ],
