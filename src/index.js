@@ -25,6 +25,6 @@ const server = new ApolloServer({
   context: async ({ req }) => getContext(req)
 })
 
-server.listen({ port: process.env.PORT || 8080}).then(({ url }) => {
+server.listen({ port: process.env.PORT || 8081 }).then(({ url }) => {
   console.log(`Server ready at ${url}`)
 })
