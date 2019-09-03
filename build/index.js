@@ -63,7 +63,7 @@ var server = new _apolloServer.ApolloServer({
   }()
 });
 server.listen({
-  port: process.env.PORT || 8080
+  port: process.env.PORT || 8081
 }).then(function (_ref2) {
   var url = _ref2.url;
   console.log("Server ready at ".concat(url));

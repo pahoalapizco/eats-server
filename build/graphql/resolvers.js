@@ -644,35 +644,39 @@ var resolvers = {
     addPedido: function () {
       var _addPedido2 = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee15(parent, _ref19) {
-        var data, pedido;
+      _regenerator["default"].mark(function _callee15(parent, _ref19, _ref20) {
+        var data, user, newPedido, pedido;
         return _regenerator["default"].wrap(function _callee15$(_context15) {
           while (1) {
             switch (_context15.prev = _context15.next) {
               case 0:
                 data = _ref19.data;
-                _context15.prev = 1;
-                _context15.next = 4;
-                return (0, _pedidosActions.addPedido)(data);
+                user = _ref20.user;
+                _context15.prev = 2;
+                newPedido = _objectSpread({}, data, {
+                  usuario: user._id
+                });
+                _context15.next = 6;
+                return (0, _pedidosActions.addPedido)(newPedido);
 
-              case 4:
+              case 6:
                 pedido = _context15.sent;
                 return _context15.abrupt("return", pedido);
 
-              case 8:
-                _context15.prev = 8;
-                _context15.t0 = _context15["catch"](1);
+              case 10:
+                _context15.prev = 10;
+                _context15.t0 = _context15["catch"](2);
                 return _context15.abrupt("return", _context15.t0);
 
-              case 11:
+              case 13:
               case "end":
                 return _context15.stop();
             }
           }
-        }, _callee15, null, [[1, 8]]);
+        }, _callee15, null, [[2, 10]]);
       }));
 
-      function addPedido(_x29, _x30) {
+      function addPedido(_x29, _x30, _x31) {
         return _addPedido2.apply(this, arguments);
       }
 
@@ -681,13 +685,13 @@ var resolvers = {
     takePedido: function () {
       var _takePedido2 = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee16(parent, _ref20, context, info) {
+      _regenerator["default"].mark(function _callee16(parent, _ref21, context, info) {
         var pedidoID, repartidorID, pedido, repartidor;
         return _regenerator["default"].wrap(function _callee16$(_context16) {
           while (1) {
             switch (_context16.prev = _context16.next) {
               case 0:
-                pedidoID = _ref20.pedidoID, repartidorID = _ref20.repartidorID;
+                pedidoID = _ref21.pedidoID, repartidorID = _ref21.repartidorID;
                 _context16.prev = 1;
                 _context16.next = 4;
                 return (0, _pedidosActions.takePedido)(pedidoID, repartidorID);
@@ -717,7 +721,7 @@ var resolvers = {
         }, _callee16, null, [[1, 12]]);
       }));
 
-      function takePedido(_x31, _x32, _x33, _x34) {
+      function takePedido(_x32, _x33, _x34, _x35) {
         return _takePedido2.apply(this, arguments);
       }
 
@@ -726,13 +730,13 @@ var resolvers = {
     actualizarPedido: function () {
       var _actualizarPedido = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee17(parent, _ref21) {
+      _regenerator["default"].mark(function _callee17(parent, _ref22) {
         var pedidoID, Estatus, filter, update, pedidoActualizado;
         return _regenerator["default"].wrap(function _callee17$(_context17) {
           while (1) {
             switch (_context17.prev = _context17.next) {
               case 0:
-                pedidoID = _ref21.pedidoID, Estatus = _ref21.Estatus;
+                pedidoID = _ref22.pedidoID, Estatus = _ref22.Estatus;
                 _context17.prev = 1;
                 filter = {
                   _id: pedidoID
@@ -762,7 +766,7 @@ var resolvers = {
         }, _callee17, null, [[1, 10]]);
       }));
 
-      function actualizarPedido(_x35, _x36) {
+      function actualizarPedido(_x36, _x37) {
         return _actualizarPedido.apply(this, arguments);
       }
 
@@ -771,13 +775,13 @@ var resolvers = {
     calificarRepartidor: function () {
       var _calificarRepartidor2 = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee18(parent, _ref22) {
+      _regenerator["default"].mark(function _callee18(parent, _ref23) {
         var data, calificacion;
         return _regenerator["default"].wrap(function _callee18$(_context18) {
           while (1) {
             switch (_context18.prev = _context18.next) {
               case 0:
-                data = _ref22.data;
+                data = _ref23.data;
                 _context18.prev = 1;
                 _context18.next = 4;
                 return (0, _calificacionActions.calificarRepartidor)(data);
@@ -799,7 +803,7 @@ var resolvers = {
         }, _callee18, null, [[1, 8]]);
       }));
 
-      function calificarRepartidor(_x37, _x38) {
+      function calificarRepartidor(_x38, _x39) {
         return _calificarRepartidor2.apply(this, arguments);
       }
 
@@ -808,14 +812,14 @@ var resolvers = {
     addCarrito: function () {
       var _addCarrito2 = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee19(parent, _ref23, _ref24, info) {
+      _regenerator["default"].mark(function _callee19(parent, _ref24, _ref25, info) {
         var data, user, carritoData, carrito;
         return _regenerator["default"].wrap(function _callee19$(_context19) {
           while (1) {
             switch (_context19.prev = _context19.next) {
               case 0:
-                data = _ref23.data;
-                user = _ref24.user;
+                data = _ref24.data;
+                user = _ref25.user;
                 _context19.prev = 2;
                 carritoData = _objectSpread({}, data, {
                   usuario: user._id
@@ -840,7 +844,7 @@ var resolvers = {
         }, _callee19, null, [[2, 10]]);
       }));
 
-      function addCarrito(_x39, _x40, _x41, _x42) {
+      function addCarrito(_x40, _x41, _x42, _x43) {
         return _addCarrito2.apply(this, arguments);
       }
 
@@ -849,13 +853,13 @@ var resolvers = {
     removeCarrito: function () {
       var _removeCarrito2 = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee20(parent, args, _ref25, info) {
+      _regenerator["default"].mark(function _callee20(parent, args, _ref26, info) {
         var user, carritoRemove;
         return _regenerator["default"].wrap(function _callee20$(_context20) {
           while (1) {
             switch (_context20.prev = _context20.next) {
               case 0:
-                user = _ref25.user;
+                user = _ref26.user;
                 _context20.prev = 1;
                 _context20.next = 4;
                 return (0, _carritoActions.removeCarrito)(user._id);
@@ -877,7 +881,7 @@ var resolvers = {
         }, _callee20, null, [[1, 8]]);
       }));
 
-      function removeCarrito(_x43, _x44, _x45, _x46) {
+      function removeCarrito(_x44, _x45, _x46, _x47) {
         return _removeCarrito2.apply(this, arguments);
       }
 
