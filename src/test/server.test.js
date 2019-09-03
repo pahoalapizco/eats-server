@@ -34,8 +34,7 @@ describe("[USUARIOS]", () => {
         should.exist(res);
         expect(res.statusCode).toBe(200);
         body.should.have.property("data");
-        expect(body.data.addUser.token).not.toBeNull();        
-        body.data.token.should.be.a('string')
+        expect(body.data.addUser.token).not.toBeNull();  
         done(err);
       }
     );
@@ -61,8 +60,7 @@ describe("[USUARIOS]", () => {
         should.exist(res);
         expect(res.statusCode).toBe(200);
         body.should.have.property("data");
-        expect(body.data.login.token).not.toBeNull();        
-        // body.data.token.should.be.a('string')
+        expect(body.data.login.token).not.toBeNull();
         token = body.data.login.token;
         done(err);
       }
@@ -141,7 +139,7 @@ describe("[REPARTIDORES]", () => {
         expect(res.statusCode).toBe(200);
         body.should.have.property("data");
         expect(body.data.getRepartidores).not.toBeNull();
-        body.data.should.have.property('getRepartidores').with.lengthOf(1)
+        body.data.should.have.property('getRepartidores').with.lengthOf(1) 
         done(err);
       }
     );
@@ -174,7 +172,7 @@ describe("[RESTAURANTES]", () => {
         expect(res.statusCode).toBe(200);
         body.should.have.property("data");
         expect(body.data.addRestaurant._id).not.toBeNull();
-        // body.data.addRestaurant.should.be.an('object')
+        body.data.addRestaurant.should.be.an('object')
         restauranteID = body.data.addRestaurant._id;
         done(err);
       }
@@ -196,7 +194,6 @@ describe("[RESTAURANTES]", () => {
         expect(res.statusCode).toBe(200);
         body.should.have.property("data");
         expect(body.data.getRestaurants).not.toBeNull();
-        // expect(body.data.getRestaurants.length).toBe(1);
         body.data.should.have.property('getRestaurants').with.lengthOf(1)
         done(err);
       }
@@ -226,7 +223,7 @@ describe("[CATEGORIAS]", () => {
         expect(res.statusCode).toBe(200);
         body.should.have.property("data");
         expect(body.data.addCategoria._id).not.toBeNull();
-        // body.data.addCategoria.should.be.an('object')
+        body.data.addCategoria.should.be.an('object')
         categoriaID = body.data.addCategoria._id;
         done(err);
       }
@@ -247,10 +244,159 @@ describe("[CATEGORIAS]", () => {
         expect(res.statusCode).toBe(200);
         body.should.have.property("data");
         expect(body.data.getCategoria).not.toBeNull();
-        expect(body.data.getCategoria.length).toBe(1);
-        // body.data.should.have.property('getCategoria').with.lengthOf(1)
+        body.data.should.have.property('getCategoria').with.lengthOf(1)
         done(err);
       }
     );
   });
 });
+
+describe('[PLATILLOS]', () => {
+  test('Debe agregar un platillo', (done) => {
+    const json = {
+      query:
+        "mutation($data:PlatilloInput){ addPlatillo(data:$data){ _id, name } }",
+      variables: {
+        data: {
+          name: "Platillo test",
+          description: "Descripcion de platillo test",
+          price: 20,
+          restaurant: restauranteID,
+          categoria: categoriaID
+        }
+      }
+    };
+    request.post(
+      {
+        url: HOST,
+        json
+      },
+      function(err, res, body) {
+        should.not.exist(err);
+        should.exist(res);
+        expect(res.statusCode).toBe(200);
+        body.should.have.property("data");
+        expect(body.data.addPlatillo._id).not.toBeNull();
+        body.data.addPlatillo.should.be.an('object')
+        platilloID = body.data.addPlatillo._id;
+        done(err);
+      }
+    );
+  })
+  test('Debe regresar un arreglo de platillos', (done) => {
+    const json = {
+      query: "{ getPlatillos { _id, name } }"
+    };
+    request.post(
+      {
+        url: HOST,
+        json,
+        headers: {
+          Authorization: token
+        }
+      },
+      function(err, res, body) {
+        should.not.exist(err);
+        should.exist(res);
+        expect(res.statusCode).toBe(200);
+        body.should.have.property("data");
+        expect(body.data.getPlatillos).not.toBeNull();
+        body.data.should.have.property('getPlatillos').with.lengthOf(1)
+        done(err);
+      }
+    );
+  })
+  test('Debe regresar un obteto Platilo', (done) => {
+    const json = {
+      query: "query($platilloID:ID){ getPlatillo(platilloID:$platilloID){ _id, name } }",
+      variables: {
+        platilloID
+      }
+    };
+
+    request.post(
+      {
+        url: HOST,
+        json,
+        headers: {
+          Authorization: token
+        }
+      },
+      function(err, res, body) {
+        should.not.exist(err);
+        should.exist(res);
+        expect(res.statusCode).toBe(200);
+        body.should.have.property("data");
+        expect(body.data.getPlatillo).not.toBeNull();
+        body.data.getPlatillo.should.be.an('object')
+        done(err);
+      }
+    );
+  })
+})
+
+describe('[PEDIDOS]', () => {
+  test('Debe registrar un pedido', (done) => {
+    const json = {
+      query:
+        "mutation($data:PedidoInput){ addPedido(data:$data){ _id, detail { platillo {_id} } } }",
+      variables: {
+        data: {
+          restaurant: restauranteID,
+          total: 20,
+          address: "una direccion test",
+          metodoPago: 'Efectivo',
+          detail: {
+            platillo: platilloID,
+            cantidad: 1,
+            importe: 20
+          }
+        }
+      }
+    };
+    request.post(
+      {
+        url: HOST,
+        json,
+        headers: {
+          Authorization: token
+        }
+      },
+      function(err, res, body) {
+        should.not.exist(err);
+        should.exist(res);
+        expect(res.statusCode).toBe(200);
+        body.should.have.property("data");
+        expect(body.data.addPedido._id).not.toBeNull();
+        body.data.addPedido.should.be.an('object')
+        body.data.addPedido.should.have.property('detail').with.lengthOf(1)
+        pedidoID = body.data.addPedido._id;
+        done(err);
+      }
+    );
+  })
+  test('Debe obtener un arreglo de pedidos', (done) => {
+    const json = {
+      query: "{ getPedidos { _id } }",
+    };
+    request.post(
+      {
+        url: HOST,
+        json,
+        headers: {
+          Authorization: token
+        }
+      },
+      function(err, res, body) {
+        should.not.exist(err);
+        should.exist(res);
+        expect(res.statusCode).toBe(200);
+        body.should.have.property("data");
+        expect(body.data.getPedidos).not.toBeNull();
+        body.data.should.have.property('getPedidos').with.lengthOf(1)
+        // body.data.getPedidos[0].should.have.property('detail').with.lengthOf(1)
+        done(err);
+      }
+    );
+  })
+})

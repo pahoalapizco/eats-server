@@ -135,7 +135,6 @@ const typesDefs = gql`
 
   input PedidoInput {
     restaurant: ID
-    usuario: ID
     repartidor: ID
     total: Float
     address: String

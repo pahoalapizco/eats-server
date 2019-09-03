@@ -148,9 +148,13 @@ const resolvers = {
         return error
       }
     },
-    addPedido: async (parent, { data }) => {
+    addPedido: async (parent, { data }, { user }) => {
       try {
-        const pedido = await addPedido(data)
+        const newPedido = {
+          ...data,
+          usuario: user._id
+        }
+        const pedido = await addPedido(newPedido)
         return pedido
       } catch (error) {
         return error
