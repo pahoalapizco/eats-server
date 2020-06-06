@@ -33,7 +33,7 @@
   "homepage": "https://github.com/pahoalapizco/eats-server#readme",
   "dependencies": {
     "@babel/runtime": "^7.5.5",
-    "apollo-server": "^2.8.2",
+    "apollo-server": "^2.14.2",
     "apollo-server-express": "^2.9.0",
     "bcrypt": "3.0.6",
     "cloudinary": "^1.14.0",
